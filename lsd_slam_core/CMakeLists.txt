@@ -110,6 +110,7 @@ target_link_libraries(live_slam lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES})
 
 # build image node
 add_executable(dataset src/main_on_images.cpp)
+add_dependencies(viewer lsd_slam_viewer_generate_messages_cpp)
 target_link_libraries(dataset lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES})
 
 # TODO add INSTALL
