@@ -71,6 +71,7 @@ include_directories(
 )
 
 add_executable(viewer src/main_viewer.cpp ${SOURCE_FILES} ${HEADER_FILES})
+add_dependencies(viewer lsd_slam_viewer_generate_messages_cpp)
 target_link_libraries(viewer ${QGLViewer_LIBRARIES}
 			     ${QGLVIEWER_LIBRARY}
 			     ${catkin_LIBRARIES}
