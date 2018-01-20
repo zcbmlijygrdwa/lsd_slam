@@ -11,6 +11,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
+  OpenCV
   dynamic_reconfigure
   sensor_msgs
   image_transport
@@ -94,6 +95,7 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/thirdparty/Sophus
   ${CSPARSE_INCLUDE_DIR} #Has been set by SuiteParse
   ${CHOLMOD_INCLUDE_DIR} #Has been set by SuiteParse
+  ${OpenCV_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -114,5 +116,6 @@ add_dependencies(lsdslam lsd_slam_viewer_generate_messages_cpp)
 add_dependencies(live_slam lsd_slam_viewer_generate_messages_cpp)
 add_dependencies(dataset lsd_slam_viewer_generate_messages_cpp)
 target_link_libraries(dataset lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES})
+target_link_libraries(live_slam lsdslam ${OpenCV_LIBRARIES})
 
 # TODO add INSTALL
