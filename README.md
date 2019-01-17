@@ -89,11 +89,36 @@ Compile the two package by typing:
     rosmake lsd_slam
 
 
+## 2.3 ROS Kinetic + Ubuntu 16.04
+### Pre-requisites
+1. [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
+
+### Installation
+    sudo apt install libsuitesparse-dev libqglviewer-dev-qt4 ros-kinetic-libg2o  ros-kinetic-opencv3
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libQGLViewer-qt4.so /usr/lib/x86_64-linux-gnu/libQGLViewer.so  
+    
+    mkdir -p ros_workspace/src
+    cd ros_workspace/src
+    git clone https://github.com/kevin-george/lsd_slam.git src/lsd_slam  
+    cd ..
+    catkin_make
+
+### Usage
+1. **Run a cv_camera node. You will need to clone and build the cv_camera ROS package to use this.**  
+
+    `rosrun cv_camera cv_camera_node /cv_camera/image_raw:=/camera/image_raw`
+
+2. **Run the LSD_SLAM node. There is a calibration param file to test with, in the repo. Please make your own to get better results.** 
+
+    `rosrun lsd_slam_core live_slam /image:=/camera/image_raw _calib:=src/lsd_slam/calibration_params`
+
+3. **The window where you ran command 2. will not show any information, please use the below command in a separate terminal to view the ROS pose information being published**
+
+    `rostopic echo /lsd_slam/pose`
 
 
 
-
-## 2.3 openFabMap for large loop-closure detection [optional]
+## 2.4 openFabMap for large loop-closure detection [optional]
 If you want to use openFABMAP for large loop closure detection, uncomment the following lines in `lsd_slam_core/CMakeLists.txt` :
 
     #add_subdirectory(${PROJECT_SOURCE_DIR}/thirdparty/openFabMap)
